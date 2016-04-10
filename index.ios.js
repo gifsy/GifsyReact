@@ -11,9 +11,9 @@ Parse.initialize('myAppId', 'myMasterKey');
 Parse.serverURL = 'http://gifsyapp.com/parse';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Timeline from './components/timeline';
-import Post from './components/post';
-import Settings from './components/settings';
+import Timeline from './components/Timeline';
+import Post from './components/Post';
+import Settings from './components/Settings';
 
 class GifsyReact extends Component {
   constructor(props) {

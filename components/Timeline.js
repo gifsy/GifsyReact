@@ -1,11 +1,13 @@
 import React, {
   Component,
   StyleSheet,
-  Text,
-  View
+  View,
+  ScrollView,
+  Text
 } from 'react-native';
 
 import {Parse} from 'parse/react-native';
+import TimelinePost from './TimelinePost';
 
 var Post = Parse.Object.extend("Post");
 
@@ -26,21 +28,27 @@ class Timeline extends Component {
   }
   render() {
     return (
-      <View style={styles.tabContent}>
-        {this.state.posts.map(function(post) {
-          return <Text key={post.id}>{post.id}</Text>;
-        })}
-
+      <View style={styles.view}>
+        <ScrollView
+          automaticallyAdjustContentInsets={true}
+          scrollEventThrottle={0}
+          style={styles.scrollView}>
+          {this.state.posts.map(function(post) {
+            return <TimelinePost key={post.id} caption={post.get('caption')} source={post.get('gifUrl')} />;
+          })}
+        </ScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  tabContent: {
+  view: {
     flex: 1,
     marginTop: 20
   },
+  scrollView: {
+  }
 });
 
 export default Timeline;
