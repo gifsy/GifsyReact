@@ -5,11 +5,32 @@ import React, {
   View
 } from 'react-native';
 
+import {Parse} from 'parse/react-native';
+
+var Post = Parse.Object.extend("Post");
+
 class Timeline extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    };
+    this.loadData();
+  }
+  loadData() {
+    var query = new Parse.Query(Post);
+    query.find({
+      success: (results) => this.setState({ posts: results }),
+      error: (err) => alert(JSON.stringify(err))
+    });
+  }
   render() {
     return (
       <View style={styles.tabContent}>
-        <Text>Timeline</Text>
+        {this.state.posts.map(function(post) {
+          return <Text key={post.id}>{post.id}</Text>;
+        })}
+
       </View>
     );
   }
@@ -18,7 +39,7 @@ class Timeline extends Component {
 const styles = StyleSheet.create({
   tabContent: {
     flex: 1,
-    marginTop: 40
+    marginTop: 20
   },
 });
 

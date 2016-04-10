@@ -18,7 +18,7 @@ class Post extends Component {
 const styles = StyleSheet.create({
   tabContent: {
     flex: 1,
-    marginTop: 40
+    marginTop: 20
   },
 });
 

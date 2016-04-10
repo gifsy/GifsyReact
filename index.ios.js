@@ -5,6 +5,11 @@ import React, {
   StyleSheet,
 } from 'react-native';
 
+import {Parse} from 'parse/react-native';
+
+Parse.initialize('myAppId', 'myMasterKey');
+Parse.serverURL = 'http://gifsyapp.com/parse';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Timeline from './components/timeline';
 import Post from './components/post';
