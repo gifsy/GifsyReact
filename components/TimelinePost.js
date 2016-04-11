@@ -6,11 +6,13 @@ import React, {
   Text
 } from 'react-native';
 
+import TimelinePostHeader from './TimelinePostHeader';
+
 class TimelinePost extends Component {
   render() {
     return (
       <View>
-        <Text>{this.props.caption}</Text>
+        <TimelinePostHeader username='Martin' posted='4w' />
         <Image
           style={styles.image}
           source={{uri: this.props.source}}

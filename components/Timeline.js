@@ -2,7 +2,7 @@ import React, {
   Component,
   StyleSheet,
   View,
-  ScrollView,
+  ListView,
   Text
 } from 'react-native';
 
@@ -14,40 +14,34 @@ var Post = Parse.Object.extend("Post");
 class Timeline extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      posts: []
+      posts: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     };
     this.loadData();
   }
   loadData() {
     var query = new Parse.Query(Post);
     query.find({
-      success: (results) => this.setState({ posts: results }),
+      success: (results) => this.setState({ posts: this.state.posts.cloneWithRows(results) }),
       error: (err) => alert(JSON.stringify(err))
     });
   }
   render() {
     return (
-      <View style={styles.view}>
-        <ScrollView
-          automaticallyAdjustContentInsets={true}
-          scrollEventThrottle={0}
-          style={styles.scrollView}>
-          {this.state.posts.map(function(post) {
-            return <TimelinePost key={post.id} caption={post.get('caption')} source={post.get('gifUrl')} />;
-          })}
-        </ScrollView>
-      </View>
+      <ListView
+        dataSource={this.state.posts}
+        renderRow={(post) => <TimelinePost source={post.get('gifUrl')} />}
+        style={styles.listView}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  view: {
+  listView: {
     flex: 1,
-    marginTop: 20
-  },
-  scrollView: {
+    marginTop: 0
   }
 });
 
